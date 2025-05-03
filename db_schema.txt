@@ -1,0 +1,61 @@
+Tables:
+
+1.  Users
+
+    *   user_id (INT, PRIMARY KEY, AUTO_INCREMENT)
+    *   username (VARCHAR, UNIQUE, NOT NULL)
+    *   email (VARCHAR, UNIQUE, NOT NULL)
+    *   password (VARCHAR, NOT NULL)
+    *   is_admin (BOOLEAN, DEFAULT FALSE)
+    *   created_at (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP)
+2.  Categories
+
+    *   category_id (INT, PRIMARY KEY, AUTO_INCREMENT)
+    *   name (VARCHAR, UNIQUE, NOT NULL)
+    *   description (TEXT)
+3.  Products
+
+    *   product_id (INT, PRIMARY KEY, AUTO_INCREMENT)
+    *   name (VARCHAR, NOT NULL)
+    *   description (TEXT)
+    *   price (DECIMAL, NOT NULL)
+    *   stock_quantity (INT, DEFAULT 0)
+    *   image_url (TEXT)
+    *   created_at (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP)
+    *   updated_at (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP)
+
+4.  Product_Categories
+    *   product_category_id (INT, PRIMARY KEY, AUTO_INCREMENT)
+    *   product_id (INT, FOREIGN KEY referencing Products.product_id, NOT NULL)
+    *   category_id (INT, FOREIGN KEY referencing Categories.category_id, NOT NULL)
+    *   UNIQUE (product_id,category_id) #each product can have each category just one time.
+
+5.  Orders
+
+    *   order_id (INT, PRIMARY KEY, AUTO_INCREMENT)
+    *   user_id (INT, FOREIGN KEY referencing Users.user_id, NOT NULL)
+    *   order_date (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP)
+    *   total_amount (DECIMAL, NOT NULL)
+    *   status (VARCHAR, DEFAULT 'Pending')
+6.  Order_Items
+    *   order_item_id (INT, PRIMARY KEY, AUTO_INCREMENT)
+    *   order_id (INT, FOREIGN KEY referencing Orders.order_id, NOT NULL)
+    *   product_id (INT, FOREIGN KEY referencing Products.product_id, NOT NULL)
+    *   quantity (INT, NOT NULL)
+    *   price (DECIMAL, NOT NULL)
+7.  Stats
+    *   stat_id (INT, PRIMARY KEY, AUTO_INCREMENT)
+    *   name (VARCHAR, NOT NULL)
+    *   value (VARCHAR, NOT NULL)
+    *   date (DATE)
+    *   description (TEXT)
+    *   category (VARCHAR)
+
+8.  Logs
+    *   log_id (INT, PRIMARY KEY, AUTO_INCREMENT)
+    *   action (VARCHAR)
+    *   timestamp (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP)
+    *   user_id (INT)
+    *   table_name (VARCHAR)
+    *   record_id (INT)
+    *   description (TEXT)
